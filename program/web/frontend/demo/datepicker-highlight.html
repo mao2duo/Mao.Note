@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/Mao.Note/site.css">
+
+    <title>Datepicker - Highlight</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="h1">Datepicker</div>
+		<div class="h2">Highlight</div>
+        <div id="datepicker"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="/Mao.Note/site.js"></script>
+    <script type="text/javascript">
+        var $datepicker;
+        $(function () {
+            $datepicker = $("#datepicker");
+            $datepicker.datepicker({
+                format: "yyyy-mm-dd",
+                // 如果只有今天需要 highlight
+                todayHighlight: true,
+                // 如果要自訂 highlight 的日期
+                beforeShowDay: function (date) {
+                    if (dateFormat(date) == "2022-02-11" || dateFormat(date) == "2022-02-12") {
+                        // 這邊的 "today" 是讓它跟 todayHighlight 的樣式一樣
+                        // 也可以換成自己的 class，然後用 css 去改 background-color 之類的
+                        return { classes: "today", tooltip: "" };
+                    }
+                }
+            });
+            // 設定日期，參數可以是 Date 也可以是字串
+            // (用 new Date() 選擇今日)
+            $datepicker.datepicker("setDate", new Date());
+            // 取得日期 (需要注意取得的值是 Date 不是字串)
+            var date = $datepicker.datepicker("getDate");
+        });
+
+        /** 把 Date 轉成 yyyy-MM-dd 的格式字串 */
+        function dateFormat(date) {
+            return date.getFullYear()
+                + "-"
+                + (date.getMonth() + 1).toString().padStart(2, "0")
+                + "-"
+                + date.getDate().toString().padStart(2, "0");
+        }
+    </script>
+</body>
+</html>
