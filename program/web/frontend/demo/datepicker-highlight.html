@@ -49,11 +49,16 @@
 
         /** 把 Date 轉成 yyyy-MM-dd 的格式字串 */
         function dateFormat(date) {
-            return date.getFullYear()
-                + "-"
-                + (date.getMonth() + 1).toString().padStart(2, "0")
-                + "-"
-                + date.getDate().toString().padStart(2, "0");
+			// 如果沒有要支援 IE11 可以用 padStart(2, "0") 來補 0
+			var mm = (date.getMonth() + 1).toString();
+			if (mm.length == 1) {
+				mm = "0" + mm;
+			}
+			var dd = date.getDate().toString();
+			if (dd.length == 1) {
+				dd = "0" + dd;
+			}
+            return date.getFullYear() + "-" + mm + "-" + dd;
         }
     </script>
 </body>
